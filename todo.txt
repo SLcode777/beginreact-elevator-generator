@@ -1,0 +1,5 @@
+. implémenter le bouton download en travaillant les fichiers render-png.js / resvg-worker.js
+
+pour l'instant, j'ai essayé "à ma sauce" car je n'ai pas suivi le même code que Melvyn pour coder l'image preview, du coup, c'est galère... 
+
+peut-être voir pour regrouper mes 3 settingsValue dans un objet settings comme Melvyn déjà pour commencer. 
