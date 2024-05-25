@@ -9,8 +9,8 @@ import { useState } from "react";
 export default function App({ settings }) {
   const [value, setValue] = useState({
     padding: 50,
-    shadow: 40,
-    radius: 10,
+    shadow: 50,
+    radius: 50,
   });
   const [image, setImage] = useState(null);
 
