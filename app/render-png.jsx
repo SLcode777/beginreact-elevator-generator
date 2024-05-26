@@ -45,19 +45,23 @@ const convertSVGToPNG = (() => {
 
 const CANVAS_SIZE = 400;
 
-export async function renderPNG({ image, settings }) {
+export async function renderPNG({ image, settings, imageInfo }) {
   console.log(image);
+  console.log(settings);
+  console.log(imageInfo);
 
   const imageURL = URL.createObjectURL(image);
   console.log(imageURL);
+  const imgInf = imageInfo;
+  console.log("imginf:", imgInf);
 
-  const scale = image.width / CANVAS_SIZE;
-  // console.log(scale);
+  const scale = imageInfo.width / CANVAS_SIZE;
+  console.log(scale);
 
   const newSettings = {
-    padding: settings.padding,
-    shadow: settings.shadow,
-    radius: settings.radius,
+    padding: settings.padding * scale,
+    shadow: settings.shadow * scale,
+    radius: settings.radius * scale,
   };
 
   console.log(newSettings);
@@ -65,10 +69,15 @@ export async function renderPNG({ image, settings }) {
   // const fontPath = "/fonts/Inter-Regular.ttf";
 
   const svg = await satori(
-    <ImageGenerator settings={newSettings} imageUrl={imageURL} />,
+    <ImageGenerator
+      settings={newSettings}
+      imageUrl={imageURL}
+      imageInfo={imageInfo}
+    />,
     {
-      width: image.width,
-      height: image.height,
+      width: imageInfo.width,
+      height: imageInfo.height,
+      src: imageInfo.src,
       // fonts: [
       //   {
       //     name: "Inter",
@@ -80,11 +89,13 @@ export async function renderPNG({ image, settings }) {
     }
   );
 
+  console.log("svg:", svg);
+
   // URL.revokeObjectURL(imageURL);
 
   const messageData = await convertSVGToPNG?.({
     svg,
-    width: image.width,
+    width: imageInfo.width,
   });
 
   return messageData;
