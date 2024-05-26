@@ -6,7 +6,7 @@ export function FileUploader({ setImage }) {
       <p>File</p>
       <input
         type="file"
-        class="file-input file-input-warning file-input-sm w-full max-w-xs"
+        className="file-input file-input-warning file-input-sm w-full max-w-xs"
         onChange={(e) => {
           const file = e.target.files[0];
           if (file) {

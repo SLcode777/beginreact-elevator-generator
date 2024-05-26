@@ -4,15 +4,33 @@ import { renderPNG } from "./render-png";
 import { Slider } from "./components/slider";
 import { FileUploader } from "./components/file-uploader";
 import { ImageGenerator } from "./components/image-preview";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function App({ settings }) {
+export default function App() {
   const [value, setValue] = useState({
     padding: 50,
     shadow: 50,
     radius: 50,
   });
   const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+
+  useEffect(() => {
+    if (image instanceof File) {
+      const url = URL.createObjectURL(image);
+      setImageUrl(url);
+
+      return () => {
+        URL.revokeObjectURL(url);
+      };
+    }
+  }, [image]);
+
+  useEffect(() => {
+    document.fonts.load('10pt "Inter"');
+  }, []);
+
+  console.log(imageUrl)
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-zinc-700">
@@ -27,14 +45,14 @@ export default function App({ settings }) {
               title="Padding"
               value={value.padding}
               setValue={(newValue) =>
-                setValue((prev) => ({ ...prev, padding: newValue }))
+                setValue((prev) => ({ ...prev, padding: Number(newValue) }))
               }
             />
             <Slider
               title="Shadow"
               value={value.shadow}
               setValue={(newValue) =>
-                setValue((prev) => ({ ...prev, shadow: newValue }))
+                setValue((prev) => ({ ...prev, shadow: Number(newValue) }))
               }
             />
 
@@ -42,31 +60,33 @@ export default function App({ settings }) {
               title="Radius"
               value={value.radius}
               setValue={(newValue) =>
-                setValue((prev) => ({ ...prev, radius: newValue }))
+                setValue((prev) => ({ ...prev, radius: Number(newValue) }))
               }
             />
           </div>
         </div>
-        <ImageGenerator image={image} settings={value} />
+        <ImageGenerator imageUrl={imageUrl} settings={value} />
       </div>
       <div className="mt-4  flex flex-row gap-4 justify-end min-w-screen max-w-[864px] w-full ">
         <button
           className="btn bg-warning hover:bg-primary text-zinc-800"
           disabled={!image}
           onClick={async () => {
+            console.log(image);
+
             const { blob } = await renderPNG({
               image,
               settings: value,
             });
+            console.log(image);
             const url = URL.createObjectURL(blob);
 
             // Fais en sorte de télécharger l'image ici
             const link = document.createElement("a");
+            console.log(link)
             link.href = url;
             link.download = "image.png";
-            document.body.appendChild(link);
             link.click();
-            document.body.removeChild(link);
           }}
         >
           Download

@@ -1,28 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
 
-export function ImageGenerator({
-  image,
-  settings,
-}) {
-  const [imageUrl, setImageUrl] = useState(null);
-
-  useEffect(() => {
-    if (image instanceof File) {
-      const url = URL.createObjectURL(image);
-      setImageUrl(url);
-
-      return () => {
-        URL.revokeObjectURL(url);
-      };
-    }
-  }, [image]);
+export function ImageGenerator({ imageUrl, settings }) {
+  console.log(imageUrl);
 
   return (
     <div
-      style={{ padding: `${settings.padding}px` }}
+      style={{ display: "flex", padding: `${settings.padding}px` }}
       className="flex flex-col size-[400px] border border-zinc-300 rounded-xl items-center justify-center text-zinc-300"
     >
       {imageUrl ? (

@@ -31,3 +31,10 @@ body {
     text-wrap: balance;
   }
 }
+
+
+/* @font-face {
+  font-family: 'Inter';
+  src: url('/path/to/myfont.woff2') format('woff2'),
+       url('/path/to/myfont.woff') format('woff');
+} */

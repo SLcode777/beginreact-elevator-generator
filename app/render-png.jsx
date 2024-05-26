@@ -1,5 +1,12 @@
 import satori from "satori";
 import { ImageGenerator } from "./components/image-preview";
+// import { Inter } from "@next/font/google";
+
+// const inter = Inter({
+//   subsets: ["latin"],
+//   weights: ["400"],
+//   display: "swap",
+// });
 
 const convertSVGToPNG = (() => {
   if (typeof window === "undefined") {
@@ -39,20 +46,41 @@ const convertSVGToPNG = (() => {
 const CANVAS_SIZE = 400;
 
 export async function renderPNG({ image, settings }) {
+  console.log(image);
+
+  const imageURL = URL.createObjectURL(image);
+  console.log(imageURL);
+
   const scale = image.width / CANVAS_SIZE;
+  // console.log(scale);
 
   const newSettings = {
-    padding: settings.padding * scale,
-    shadow: settings.shadow * scale,
-    radius: settings.radius * scale,
+    padding: settings.padding,
+    shadow: settings.shadow,
+    radius: settings.radius,
   };
 
+  console.log(newSettings);
+
+  // const fontPath = "/fonts/Inter-Regular.ttf";
+
   const svg = await satori(
-    <ImageGenerator settings={newSettings} image={image} />,
+    <ImageGenerator settings={newSettings} imageUrl={imageURL} />,
     {
       width: image.width,
+      height: image.height,
+      // fonts: [
+      //   {
+      //     name: "Inter",
+      //     data: await fetch(fontPath).then((res) => res.arrayBuffer()),
+      //     weight: 400,
+      //     style: "normal",
+      //   },
+      // ],
     }
   );
+
+  // URL.revokeObjectURL(imageURL);
 
   const messageData = await convertSVGToPNG?.({
     svg,
