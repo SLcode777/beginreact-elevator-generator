@@ -105,62 +105,6 @@ export default function App() {
           Copy
         </button>
       </div>
-      <svg
-        width="62"
-        height="62"
-        viewBox="0 0 62 62"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <mask id="satori_om-id">
-          <rect x="0" y="0" width="62" height="62" fill="#fff" />
-        </mask>
-        <mask id="satori_ms-id-0-0" maskUnits="userSpaceOnUse">
-          <rect x="0" y="0" width="100%" height="100%" fill="#fff" />
-          <rect
-            x="31"
-            y="31"
-            width="0"
-            height="0"
-            fill="#000"
-            stroke-width="0"
-          />
-        </mask>
-        <defs>
-          <filter
-            id="satori_s-id-0-0"
-            x="-Infinity%"
-            y="-Infinity%"
-            width="Infinity%"
-            height="Infinity%"
-          >
-            <feGaussianBlur stdDeviation="25" result="b" />
-            <feFlood
-              flood-color="rgba(0,0,0,.50)"
-              in="SourceGraphic"
-              result="f"
-            />
-            <feComposite in="f" in2="b" operator="in" />
-          </filter>
-        </defs>
-        <g
-          mask="url(#satori_ms-id-0-0)"
-          filter="url(#satori_s-id-0-0)"
-          opacity="1"
-        >
-          <rect
-            x="31"
-            y="31"
-            width="0"
-            height="0"
-            fill="#fff"
-            stroke="#fff"
-            stroke-width="0"
-          />
-        </g>
-        <mask id="satori_om-id-0">
-          <rect x="31" y="31" width="0" height="0" fill="#fff" />
-        </mask>
-      </svg>
     </main>
   );
 }
